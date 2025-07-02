@@ -54,21 +54,8 @@ veg.precip.df <- read.csv('data/legacy_full_df.csv')
 
 ##Site figure
 
-eco_regions <- st_read('data/ecoregions_wwf/wwf_terr_ecos.shp', crs = st_crs(past.sf))%>%
-  filter(REALM == 'NA')
 
 
-central_plains_states <-map_data('state')%>%
-  filter(region %in%  c('colorado', 'wyoming', 'nebraska', 'kansas', 'oklahoma', 'new mexico', 'texas'))%>%
-  st_as_sf( coords = c('long', 'lat'), crs = st_crs(past.sf))%>%
-  group_by(region)%>%
-  summarise(geometry = st_combine(geometry)) %>%
-  st_cast("POLYGON")
-
-
-
-short_grass <- eco_regions%>%
-  filter(ECO_NAME %in% c('Western short grasslands'))
 
 ecosites.sf <- st_read('data/AGM_ecosites_by_pastures2/AGM_ecosites_by_pastures2.shp')%>%
   mutate(ecosite = ifelse(ECOSITE1 %notin% c('Loamy Plains', 'Sandy Plains', 'Salt Flat'), 'Other', ECOSITE1))
@@ -80,22 +67,7 @@ carm.sf <- st_read('data/CARM_data/CARM_data.shp')%>%
 st_crs(carm.sf) <- st_crs(past.sf)
 
 
-### FIGURE 1 plot### 
 
-mapreference <- ggplot()+
-  geom_sf(data = central_plains_states, fill = 'white', linewidth = 1)+
-  geom_sf(data = short_grass, fill = 'grey50', alpha = 0.6)+
-  theme_void()
-
-sitemap <- ggplot()+
-  geom_sf(data = past.sf, fill = 'grey50')+
-  geom_sf(data = carm.sf, aes(fill = forcats::fct_relevel(ecosite, c('Loamy Plains', 'Salt Flat', 'Sandy Plains', 'Other'))))+
-  labs(fill = 'Ecosite')+
-  scale_fill_manual(values = precip.palette)+
-  theme_void(base_size = 12)+
-  ggspatial::annotation_scale(location = 'bl')+
-  ggspatial::annotation_north_arrow(pad_y = unit(1, "cm"))+
-  theme(legend.position = 'left')
 
 #ggsave('sitemap.png', sitemap, width = 6, height = 5)
 
@@ -349,13 +321,6 @@ layout <- '
 ACD
 BCD'
 timeline.precip.plt + timeline.t.mass + timeline.veg + cvplt + plot_layout(design = layout)
-veg.precip.df%>%
- dplyr::select(total.mass, wspg, c3pg, forb, water.yr, pairblock, ecosite)%>%
-  pivot_longer(-c(water.yr, pairblock, ecosite), names_to = 'fun.grp', values_to = 'mass')
-
-p <- ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(~class)
 
 
 
@@ -419,42 +384,7 @@ plot_annotation(tag_levels = "A")
 
 #ggsave('fig_timeline.png', fig2_timeline, height = 7.5, width = 7.5)
 
-####fig 5
-#2021 case study
-gs.21.22 <- ppt.vars.sf%>%
-  filter(water.yr %in% c(2021, 2022))%>%
-  ggplot()+
-  geom_sf(aes(fill = gs.ppt))+
-  scale_fill_gradient2(low = 'yellow', mid = 'red', high = 'blue', midpoint =163)+
-  facet_wrap(~water.yr)+
-  theme_void()+
-  labs(title  = 'Growing season ppt')
 
-cs.21.22 <- ppt.vars.sf%>%
-  filter(water.yr %in% c(2021, 2022))%>%
-  ggplot()+
-  geom_sf(aes(fill = cs.ppt))+
-  scale_fill_gradient2(low = 'yellow', mid = 'red', high = 'blue', midpoint =23)+
-  facet_wrap(~water.yr)+
-  theme_void()+
-  labs(title  = 'Cool season ppt')
-
-f.21.22 <- ppt.vars.sf%>%
-  filter(water.yr %in% c(2021, 2022))%>%
-  ggplot()+
-  geom_sf(aes(fill = f.ppt))+
-  scale_fill_gradient2(low = 'yellow', mid = 'red', high = 'blue', midpoint = 66)+
-  facet_wrap(~water.yr)+
-  theme_void()+
-  labs(title  = 'Fall ppt')
-
-
-gs.21.22 + cs.21.22 + f.21.22 +   plot_layout(ncol = 1)
-
-veg.precip.df.all <- veg.precip.df
-
-veg.precip.df <- veg.precip.df%>%
-  filter(water.yr != 2023)
 
 
 
