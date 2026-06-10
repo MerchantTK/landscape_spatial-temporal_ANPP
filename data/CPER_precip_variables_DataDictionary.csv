@@ -1,0 +1,17 @@
+ColumnName,Description,Units
+plot,plot,NA
+plotpasture,plot and pasture ,NA
+pasture,pasture,NA
+water.yr,water year,NA
+wyr.ppt,harvest year precipitation,yyyy
+f.ppt,Fall: Aug. - Oct. precip,mm
+cs.ppt,Cold season: Nov. - Mar. precip,mm
+gs.ppt,Growing season: Apr. - July precip,mm
+lag.wyr,1 year Lag harvest year precip,mm
+lag.f,1 year lag fall precip,mm
+lag.cs,1 year lag cold season,mm
+lag.gs,1 year lag growing season,mm
+lag2.wyr,2 year Lag harvest year precip,mm
+lag2.f,2 year lag fall precip,mm
+lag2.cs,2 year lag cold season,mm
+lag2.gs,2 year lag growing season,mm

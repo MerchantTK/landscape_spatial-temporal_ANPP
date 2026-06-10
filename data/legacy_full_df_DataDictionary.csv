@@ -1,0 +1,29 @@
+ColumnName,ColumnDescription,Unit
+pairblock,aggregated unit of analysis ,NA
+pair,pair identitify within block,NA
+block,identity of blocked pasture,NA
+water.yr,water year,YYYY
+ecosite,ecosite,NA
+plot,plot,NA
+x,plot lon,NA
+y,plot lat,NA
+wspg,warm season perenial gram. Anpp,kgPerHa
+c3pg,cool season perennial gram. anpp,kgPerHa
+forb,forb anpp,kgPerHa
+total.mass,total anpp,kgPerHa
+wyr.ppt,harvest year precipitation,mm
+f.ppt,Fall: Aug. - Oct. precip,mm
+cs.ppt,Cold season: Nov. - Mar. precip,mm
+gs.ppt,Growing season: Apr. - July precip,mm
+lag.wyr,Lag harvest year precip,mm
+lag.f,lag fall precip,mm
+lag.cs,lag cold season,mm
+lag.gs,lag growing season,mm
+lag2.f,2 yr lag fall precip,mm
+lag2.cs,2 yr lag cold season,mm
+lag2.gs,2 yr lag growing season,mm
+lag.mass,1 year lag total anpp,kgPerHa
+total.mass.dm,temporally demeaned total anpp,kgPerHa
+wspg.dm,demeaned warm season anpp,kgPerHa
+c3pg.dm,demeaned warm season anpp,kgPerHa
+forb.dm,demeaned warm season anpp,kgPerHa
